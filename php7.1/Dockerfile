@@ -21,9 +21,9 @@ RUN apk add --no-cache --virtual .persistent-deps \
 		xz
 
 # ensure www-data user exists
-		# RUN set -x && \
-		# 	addgroup -g 82 -S www-data && \
-		# 	adduser -u 82 -D -S -G www-data www-data
+RUN set -x \
+	&& addgroup -g 82 -S www-data \
+	&& adduser -u 82 -D -S -G www-data www-data
 # 82 is the standard uid/gid for "www-data" in Alpine
 # http://git.alpinelinux.org/cgit/aports/tree/main/apache2/apache2.pre-install?h=v3.3.2
 # http://git.alpinelinux.org/cgit/aports/tree/main/lighttpd/lighttpd.pre-install?h=v3.3.2
@@ -84,21 +84,21 @@ RUN set -xe; \
 
 COPY docker-php-source /usr/local/bin/
 
-RUN set -xe && \
-	apk add --no-cache --virtual .build-deps \
+RUN set -xe \
+	&& apk add --no-cache --virtual .build-deps \
 		$PHPIZE_DEPS \
 		curl-dev \
 		libedit-dev \
 		libxml2-dev \
 		openssl-dev \
-		sqlite-dev && \
+		sqlite-dev \
 	\
-	export CFLAGS="$PHP_CFLAGS" \
+	&& export CFLAGS="$PHP_CFLAGS" \
 		CPPFLAGS="$PHP_CPPFLAGS" \
-		LDFLAGS="$PHP_LDFLAGS" && \
-	docker-php-source extract && \
-	cd /usr/src/php && \
-	./configure \
+		LDFLAGS="$PHP_LDFLAGS" \
+	&& docker-php-source extract \
+	&& cd /usr/src/php \
+	&& ./configure \
 		--with-config-file-path="$PHP_INI_DIR" \
 		--with-config-file-scan-dir="$PHP_INI_DIR/conf.d" \
 		\
@@ -116,23 +116,23 @@ RUN set -xe && \
 		--with-openssl \
 		--with-zlib \
 		\
-		$PHP_EXTRA_CONFIGURE_ARGS && \
-	make -j "$(getconf _NPROCESSORS_ONLN)" && \
-	make install && \
-	{ find /usr/local/bin /usr/local/sbin -type f -perm +0111 -exec strip --strip-all '{}' + || true; } && \
-	make clean && \
-	docker-php-source delete && \
+		$PHP_EXTRA_CONFIGURE_ARGS \
+	&& make -j "$(getconf _NPROCESSORS_ONLN)" \
+	&& make install \
+	&& { find /usr/local/bin /usr/local/sbin -type f -perm +0111 -exec strip --strip-all '{}' + || true; } \
+	&& make clean \
+	&& docker-php-source delete \
 	\
-	runDeps="$( \
+	&& runDeps="$( \
 		scanelf --needed --nobanner --recursive /usr/local \
 			| awk '{ gsub(/,/, "\nso:", $2); print "so:" $2 }' \
 			| sort -u \
 			| xargs -r apk info --installed \
 			| sort -u \
-	)" && \
-	apk add --no-cache --virtual .php-rundeps $runDeps && \
+	)" \
+	&& apk add --no-cache --virtual .php-rundeps $runDeps \
 	\
-	apk del .build-deps
+	&& apk del .build-deps
 
 COPY docker-php-ext-* docker-php-entrypoint /usr/local/bin/
 
