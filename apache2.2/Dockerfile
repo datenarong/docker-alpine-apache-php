@@ -47,7 +47,7 @@ RUN set -x && \
 		tar \
 	&& \
 	wget -O httpd.tar.bz2 "$HTTPD_BZ2_URL" && \
-	echo "$HTTPD_SHA1 *httpd.tar.bz2" | sha1sum -c - \
+	echo "$HTTPD_SHA1 *httpd.tar.bz2" | sha1sum -c - && \
 # see https://httpd.apache.org/download.cgi#verify
 	wget -O httpd.tar.bz2.asc "$HTTPD_ASC_URL" && \
 	export GNUPGHOME="$(mktemp -d)" && \
