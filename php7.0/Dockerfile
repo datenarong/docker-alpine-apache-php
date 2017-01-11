@@ -45,11 +45,11 @@ ENV PHP_CFLAGS="-fstack-protector-strong -fpic -fpie -O2"
 ENV PHP_CPPFLAGS="$PHP_CFLAGS"
 ENV PHP_LDFLAGS="-Wl,-O1 -Wl,--hash-style=both -pie"
 
-ENV GPG_KEYS A917B1ECDA84AEC2B568FED6F50ABC807BD5DCD0
+ENV GPG_KEYS 1A4E8B7277C42E53DBA9C7B9BCAA30EA9C0D5763
 
-ENV PHP_VERSION 7.1.0
-ENV PHP_URL="https://secure.php.net/get/php-7.1.0.tar.xz/from/this/mirror" PHP_ASC_URL="https://secure.php.net/get/php-7.1.0.tar.xz.asc/from/this/mirror"
-ENV PHP_SHA256="a810b3f29c21407c24caa88f50649320d20ba6892ae1923132598b8a0ca145b6" PHP_MD5="cf36039303c47f493100afea522a8f53"
+ENV PHP_VERSION 7.0.14
+ENV PHP_URL="https://secure.php.net/get/php-7.0.14.tar.xz/from/this/mirror" PHP_ASC_URL="https://secure.php.net/get/php-7.0.14.tar.xz.asc/from/this/mirror"
+ENV PHP_SHA256="0f1dff6392a1cc2ed126b9695f580a2ed77eb09d2c23b41cabfb41e6f27a8c89" PHP_MD5="a51f1d4f03f4e4c745856e9f76fca476"
 
 RUN set -xe; \
 	\
@@ -113,7 +113,7 @@ RUN set -xe \
 		\
 		--with-curl \
 		--with-libedit \
-		### --with-openssl \
+		--with-openssl \
 		--with-zlib \
 		\
 		$PHP_EXTRA_CONFIGURE_ARGS \

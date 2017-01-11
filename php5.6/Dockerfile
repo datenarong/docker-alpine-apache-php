@@ -3,7 +3,6 @@ FROM datenarong/docker-alpine-apache-php:apache2.4
 
 MAINTAINER Yamada Yoseigi (datenarong@gmail.com)
 
-
 # persistent / runtime deps
 ENV PHPIZE_DEPS \
 		autoconf \
@@ -21,9 +20,9 @@ RUN apk add --no-cache --virtual .persistent-deps \
 		xz
 
 # ensure www-data user exists
-		### RUN set -x \
-		### 	&& addgroup -g 82 -S www-data \
-		### 	&& adduser -u 82 -D -S -G www-data www-data
+RUN set -x \
+	&& addgroup -g 82 -S www-data \
+	&& adduser -u 82 -D -S -G www-data www-data
 # 82 is the standard uid/gid for "www-data" in Alpine
 # http://git.alpinelinux.org/cgit/aports/tree/main/apache2/apache2.pre-install?h=v3.3.2
 # http://git.alpinelinux.org/cgit/aports/tree/main/lighttpd/lighttpd.pre-install?h=v3.3.2
@@ -45,11 +44,11 @@ ENV PHP_CFLAGS="-fstack-protector-strong -fpic -fpie -O2"
 ENV PHP_CPPFLAGS="$PHP_CFLAGS"
 ENV PHP_LDFLAGS="-Wl,-O1 -Wl,--hash-style=both -pie"
 
-ENV GPG_KEYS A917B1ECDA84AEC2B568FED6F50ABC807BD5DCD0
+ENV GPG_KEYS 0BD78B5F97500D450838F95DFE857D9A90D90EC1 6E4F6AB321FDC07F2C332E3AC2BF0BC433CFC8B3
 
-ENV PHP_VERSION 7.1.0
-ENV PHP_URL="https://secure.php.net/get/php-7.1.0.tar.xz/from/this/mirror" PHP_ASC_URL="https://secure.php.net/get/php-7.1.0.tar.xz.asc/from/this/mirror"
-ENV PHP_SHA256="a810b3f29c21407c24caa88f50649320d20ba6892ae1923132598b8a0ca145b6" PHP_MD5="cf36039303c47f493100afea522a8f53"
+ENV PHP_VERSION 5.6.29
+ENV PHP_URL="https://secure.php.net/get/php-5.6.29.tar.xz/from/this/mirror" PHP_ASC_URL="https://secure.php.net/get/php-5.6.29.tar.xz.asc/from/this/mirror"
+ENV PHP_SHA256="0ff352a433f73e2c82b0d5b283b600402518569bf72a74e247f356dacbf322a7" PHP_MD5="190bf5b52d1fc68d5500a8cdc7e33164"
 
 RUN set -xe; \
 	\
@@ -113,7 +112,7 @@ RUN set -xe \
 		\
 		--with-curl \
 		--with-libedit \
-		### --with-openssl \
+		--with-openssl \
 		--with-zlib \
 		\
 		$PHP_EXTRA_CONFIGURE_ARGS \
