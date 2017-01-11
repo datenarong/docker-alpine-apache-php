@@ -1,4 +1,4 @@
-FROM httpd:2-alpine
+FROM httpd:2.2-alpine
 
 
 MAINTAINER Yamada Yoseigi (datenarong@gmail.com)
@@ -55,7 +55,7 @@ RUN set -xe; \
 	\
 	apk add --no-cache --virtual .fetch-deps \
 		gnupg \
-		libressl \
+		openssl \
 	; \
 	\
 	mkdir -p /usr/src; \
@@ -89,8 +89,8 @@ RUN set -xe \
 		$PHPIZE_DEPS \
 		curl-dev \
 		libedit-dev \
-		libressl-dev \
 		libxml2-dev \
+		openssl-dev \
 		sqlite-dev \
 	\
 	&& export CFLAGS="$PHP_CFLAGS" \
@@ -113,7 +113,7 @@ RUN set -xe \
 		\
 		--with-curl \
 		--with-libedit \
-		--with-libressl \
+		--with-openssl \
 		--with-zlib \
 		\
 		$PHP_EXTRA_CONFIGURE_ARGS \
