@@ -1,4 +1,4 @@
-FROM httpd:2.2-alpine
+FROM httpd:2.4-alpine
 
 
 MAINTAINER Yamada Yoseigi (datenarong@gmail.com)
@@ -21,9 +21,9 @@ RUN apk add --no-cache --virtual .persistent-deps \
 		xz
 
 # ensure www-data user exists
-	# RUN set -x \
-	# 	&& addgroup -g 82 -S www-data \
-	# 	&& adduser -u 82 -D -S -G www-data www-data
+### RUN set -x \
+### 	&& addgroup -g 82 -S www-data \
+### 	&& adduser -u 82 -D -S -G www-data www-data
 # 82 is the standard uid/gid for "www-data" in Alpine
 # http://git.alpinelinux.org/cgit/aports/tree/main/apache2/apache2.pre-install?h=v3.3.2
 # http://git.alpinelinux.org/cgit/aports/tree/main/lighttpd/lighttpd.pre-install?h=v3.3.2
@@ -55,7 +55,7 @@ RUN set -xe; \
 	\
 	apk add --no-cache --virtual .fetch-deps \
 		gnupg \
-		openssl \
+		### openssl \
 	; \
 	\
 	mkdir -p /usr/src; \
@@ -90,7 +90,7 @@ RUN set -xe \
 		curl-dev \
 		libedit-dev \
 		libxml2-dev \
-		openssl-dev \
+		### openssl-dev \
 		sqlite-dev \
 	\
 	&& export CFLAGS="$PHP_CFLAGS" \
@@ -113,7 +113,7 @@ RUN set -xe \
 		\
 		--with-curl \
 		--with-libedit \
-		--with-openssl \
+		### --with-openssl \
 		--with-zlib \
 		\
 		$PHP_EXTRA_CONFIGURE_ARGS \
