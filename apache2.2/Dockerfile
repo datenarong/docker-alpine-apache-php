@@ -86,7 +86,7 @@ RUN set -x && \
 	apk add --virtual .httpd-rundeps $runDeps && \
 	apk del .build-deps
 
-COPY ./httpd-foreground /usr/local/bin/
+COPY httpd-foreground /usr/local/bin/
 
 EXPOSE 80
 CMD ["httpd-foreground"]
