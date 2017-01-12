@@ -38,7 +38,7 @@ mkdir $HOME/php7/usr/etc
     --with-t1lib=/usr \
     --enable-gd-native-ttf \
     --enable-gd-jis-conv \
-    --with-openssl \
+    --with-libressl \
     --with-zlib=/usr \
     --with-bz2=/usr \
     --with-kerberos=shared,/usr/lib \

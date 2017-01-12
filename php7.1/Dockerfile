@@ -2,7 +2,8 @@ FROM datenarong/docker-alpine-apache-php:apache2.4
 
 MAINTAINER Yamada Yoseigi (datenarong@gmail.com)
 
-RUN apk --update add wget \ 
+RUN apk --update add \
+	wget \ 
 	curl \
 	git \
 	grep \
@@ -14,7 +15,7 @@ RUN apk --update add wget \
 	libjpeg-turbo-dev \
 	libjpeg \
 	bzip2-dev \
-	openssl-dev \
+	libressl-dev \
 	krb5-dev \
 	libxml2-dev \
 	build-base \
