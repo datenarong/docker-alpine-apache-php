@@ -31,9 +31,9 @@ ADD compile-php.sh /
 
 ADD php.ini /
 
-RUN chmod +x ./compile-php.sh
+RUN chmod +x /compile-php.sh
 
-RUN ./compile-php.sh
+RUN /compile-php.sh
 
 RUN mkdir -p /var/www
 
