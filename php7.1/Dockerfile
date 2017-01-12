@@ -1,4 +1,4 @@
-FROM datenarong/docker-alpine-apache-php:apache2.2
+FROM datenarong/docker-alpine-apache-php:apache2.4
 
 
 MAINTAINER Yamada Yoseigi (datenarong@gmail.com)
@@ -46,7 +46,7 @@ RUN set -xe; \
 	\
 	apk add --no-cache --virtual .fetch-deps \
 		gnupg \
-		openssl \
+		libressl \
 	; \
 	\
 	mkdir -p /usr/src; \
@@ -81,7 +81,7 @@ RUN set -xe \
 		curl-dev \
 		libedit-dev \
 		libxml2-dev \
-		openssl-dev \
+		libressl-dev \
 		sqlite-dev \
 	\
 	&& export CFLAGS="$PHP_CFLAGS" \
@@ -104,7 +104,7 @@ RUN set -xe \
 		\
 		--with-curl \
 		--with-libedit \
-		--with-openssl \
+		--with-libressl \
 		--with-zlib \
 		\
 		$PHP_EXTRA_CONFIGURE_ARGS \
