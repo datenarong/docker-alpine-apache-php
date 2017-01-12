@@ -42,36 +42,36 @@ ENV PHP_VERSION 7.0.14
 ENV PHP_URL="https://secure.php.net/get/php-7.0.14.tar.xz/from/this/mirror" PHP_ASC_URL="https://secure.php.net/get/php-7.0.14.tar.xz.asc/from/this/mirror"
 ENV PHP_SHA256="0f1dff6392a1cc2ed126b9695f580a2ed77eb09d2c23b41cabfb41e6f27a8c89" PHP_MD5="a51f1d4f03f4e4c745856e9f76fca476"
 
-# RUN set -xe; \
-# 	\
-# 	apk add --no-cache --virtual .fetch-deps \
-# 		gnupg \
-# 		libressl \
-# 	; \
-# 	\
-# 	mkdir -p /usr/src; \
-# 	cd /usr/src; \
-# 	\
-# 	wget -O php.tar.xz "$PHP_URL"; \
-# 	\
-# 	if [ -n "$PHP_SHA256" ]; then \
-# 		echo "$PHP_SHA256 *php.tar.xz" | sha256sum -c -; \
-# 	fi; \
-# 	if [ -n "$PHP_MD5" ]; then \
-# 		echo "$PHP_MD5 *php.tar.xz" | md5sum -c -; \
-# 	fi; \
-# 	\
-# 	if [ -n "$PHP_ASC_URL" ]; then \
-# 		wget -O php.tar.xz.asc "$PHP_ASC_URL"; \
-# 		export GNUPGHOME="$(mktemp -d)"; \
-# 		for key in $GPG_KEYS; do \
-# 			gpg --keyserver ha.pool.sks-keyservers.net --recv-keys "$key"; \
-# 		done; \
-# 		gpg --batch --verify php.tar.xz.asc php.tar.xz; \
-# 		rm -r "$GNUPGHOME"; \
-# 	fi; \
-# 	\
-# 	apk del .fetch-deps
+RUN set -xe; \
+	\
+	apk add --no-cache --virtual .fetch-deps \
+		gnupg \
+		libressl \
+	; \
+	\
+	mkdir -p /usr/src; \
+	cd /usr/src; \
+	\
+	wget -O php.tar.xz "$PHP_URL"; \
+	\
+	if [ -n "$PHP_SHA256" ]; then \
+		echo "$PHP_SHA256 *php.tar.xz" | sha256sum -c -; \
+	fi; \
+	if [ -n "$PHP_MD5" ]; then \
+		echo "$PHP_MD5 *php.tar.xz" | md5sum -c -; \
+	fi; \
+	\
+	if [ -n "$PHP_ASC_URL" ]; then \
+		wget -O php.tar.xz.asc "$PHP_ASC_URL"; \
+		export GNUPGHOME="$(mktemp -d)"; \
+		for key in $GPG_KEYS; do \
+			gpg --keyserver ha.pool.sks-keyservers.net --recv-keys "$key"; \
+		done; \
+		gpg --batch --verify php.tar.xz.asc php.tar.xz; \
+		rm -r "$GNUPGHOME"; \
+	fi; \
+	\
+	apk del .fetch-deps
 
 COPY docker-php-source /usr/local/bin/
 
