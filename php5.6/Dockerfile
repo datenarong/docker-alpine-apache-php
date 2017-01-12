@@ -103,7 +103,7 @@ RUN set -xe \
 		\
 		--with-curl \
 		--with-libedit \
-		--with-openssl \
+		--with-libressl \
 		--with-zlib \
 		\
 		$PHP_EXTRA_CONFIGURE_ARGS \
